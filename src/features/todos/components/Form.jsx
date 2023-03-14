@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import useInput from "../../../hooks/useInput.js";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import nextId from "react-id-generator";
 import { addTodo } from "../../../redux/modules/todosSlice.js";
 
 const Form = () => {
   const id = nextId();
+
+  const [title, onChangeTitleHandler] = useInput();
+  const [body, onChangeBodyHandler] = useInput();
 
   const dispatch = useDispatch();
   const [todo, setTodo] = useState({
@@ -15,11 +19,7 @@ const Form = () => {
     isDone: false,
   });
 
-  // const todos = useSelector((state) => state.todos.todos);
-  const onChangeHandler = event => {
-    const { name, value } = event.target;
-    setTodo({ ...todo, [name]: value });
-  };
+  const todos = useSelector(state => state.todos);
 
   const onSubmitHandler = event => {
     event.preventDefault();
@@ -41,15 +41,15 @@ const Form = () => {
         <StAddInput
           type="text"
           name="title"
-          value={todo.title}
-          onChange={onChangeHandler}
+          value={title}
+          onChange={onChangeTitleHandler}
         />
         <StFormLabel>내용</StFormLabel>
         <StAddInput
           type="text"
           name="body"
-          value={todo.body}
-          onChange={onChangeHandler}
+          value={body}
+          onChange={onChangeBodyHandler}
         />
       </StInputGroup>
       <StAddButton>추가하기</StAddButton>

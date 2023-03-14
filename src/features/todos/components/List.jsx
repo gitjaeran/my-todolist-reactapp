@@ -11,14 +11,7 @@ import { useEffect } from "react";
 const List = () => {
   const dispatch = useDispatch();
   const { isLoading, error, todos } = useSelector(state => {
-    //영상에서는 reducer이름이 todosSlice,
-    //찍히는 값도 todosSlice인데
-    //왜 영상에서는 state.todos로 찍는지?
-    //createSlice() 안의 name이 todos라서? -> 나는 undefined로 찍힘!!
-    console.log(state, "state");
-    console.log(state.todosSlice.todos, "state.todosSlice.todos");
-    console.log(state.todos, "state.todos");
-    return state.todosSlice;
+    return state.todos;
   });
 
   useEffect(() => {
@@ -32,90 +25,86 @@ const List = () => {
   if (error) {
     return <div>{error.message}</div>;
   }
-  // const onDeleteTodo = id => {
-  //   dispatch(deleteTodo(id));
-  // };
 
-  // const onToggleStatusTodo = id => {
-  //   dispatch(toggleStatusTodo(id));
-  // };
+  const onDeleteTodo = id => {
+    dispatch(deleteTodo(id));
+  };
+
+  const onToggleStatusTodo = id => {
+    dispatch(toggleStatusTodo(id));
+  };
 
   return (
-    <div>
-      {todos.map(todo => {
-        return <div key={todo.id}>{todo.title}</div>;
-      })}
-    </div>
-    // <StListContainer>
-    //   <h2>Working.. 🔥</h2>
-    //   <StListWrapper>
-    //     {todos.map(todo => {
-    //       if (!todo.isDone) {
-    //         return (
-    //           <StTodoContainer key={todo.id}>
-    //             <StLink to={`/${todo.id}`} key={todo.id}>
-    //               <div>상세보기</div>
-    //             </StLink>
-    //             <div>
-    //               <h2 className="todo-title">{todo.title}</h2>
-    //               <div>{todo.body}</div>
-    //             </div>
-    //             <StDialogFooter>
-    //               <StButton
-    //                 borderColor="red"
-    //                 onClick={() => onDeleteTodo(todo.id)}
-    //               >
-    //                 삭제하기
-    //               </StButton>
-    //               <StButton
-    //                 borderColor="green"
-    //                 onClick={() => onToggleStatusTodo(todo.id)}
-    //               >
-    //                 {todo.isDone ? "취소!" : "완료!"}
-    //               </StButton>
-    //             </StDialogFooter>
-    //           </StTodoContainer>
-    //         );
-    //       } else {
-    //         return null;
-    //       }
-    //     })}
-    //   </StListWrapper>
-    //   <h2 className="list-title">Done..! 🎉</h2>
-    //   <StListWrapper>
-    //     {todos.map(todo => {
-    //       if (todo.isDone) {
-    //         return (
-    //           <StTodoContainer key={todo.id}>
-    //             <StLink to={`/${todo.id}`} key={todo.id}>
-    //               <div>상세보기</div>
-    //             </StLink>
-    //             <div>
-    //               <h2 className="todo-title">{todo.title}</h2>
-    //               <div>{todo.body}</div>
-    //             </div>
-    //             <StDialogFooter>
-    //               <StButton
-    //                 borderColor="red"
-    //                 onClick={() => onDeleteTodo(todo.id)}
-    //               >
-    //                 삭제하기
-    //               </StButton>
-    //               <StButton
-    //                 borderColor="green"
-    //                 onClick={() => onToggleStatusTodo(todo.id)}
-    //               >
-    //                 {todo.isDone ? "취소!" : "완료!"}
-    //               </StButton>
-    //             </StDialogFooter>
-    //           </StTodoContainer>
-    //         );
-    //       } else {
-    //         return null;
-    //       }
-    //     })}
-    //   </StListWrapper>
-    // </StListContainer>
+    <StListContainer>
+      <h2>Working.. 🔥</h2>
+      <StListWrapper>
+        {todos.map(todo => {
+          if (!todo.isDone) {
+            return (
+              <StTodoContainer key={todo.id}>
+                <StLink to={`/${todo.id}`} key={todo.id}>
+                  <div>상세보기</div>
+                </StLink>
+                <div>
+                  <h2 className="todo-title">{todo.title}</h2>
+                  <div>{todo.body}</div>
+                </div>
+                <StDialogFooter>
+                  <StButton
+                    borderColor="red"
+                    onClick={() => onDeleteTodo(todo.id)}
+                  >
+                    삭제하기
+                  </StButton>
+                  <StButton
+                    borderColor="green"
+                    onClick={() => onToggleStatusTodo(todo.id)}
+                  >
+                    {todo.isDone ? "취소!" : "완료!"}
+                  </StButton>
+                </StDialogFooter>
+              </StTodoContainer>
+            );
+          } else {
+            return null;
+          }
+        })}
+      </StListWrapper>
+      <h2 className="list-title">Done..! 🎉</h2>
+      <StListWrapper>
+        {todos.map(todo => {
+          if (todo.isDone) {
+            return (
+              <StTodoContainer key={todo.id}>
+                <StLink to={`/${todo.id}`} key={todo.id}>
+                  <div>상세보기</div>
+                </StLink>
+                <div>
+                  <h2 className="todo-title">{todo.title}</h2>
+                  <div>{todo.body}</div>
+                </div>
+                <StDialogFooter>
+                  <StButton
+                    borderColor="red"
+                    onClick={() => onDeleteTodo(todo.id)}
+                  >
+                    삭제하기
+                  </StButton>
+                  <StButton
+                    borderColor="green"
+                    onClick={() => onToggleStatusTodo(todo.id)}
+                  >
+                    {todo.isDone ? "취소!" : "완료!"}
+                  </StButton>
+                </StDialogFooter>
+              </StTodoContainer>
+            );
+          } else {
+            return null;
+          }
+        })}
+      </StListWrapper>
+    </StListContainer>
   );
 };
 

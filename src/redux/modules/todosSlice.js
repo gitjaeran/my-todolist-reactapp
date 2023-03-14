@@ -14,12 +14,12 @@ const initialState = {
   isLoading: false,
   isError: false,
   error: null,
-  // todo: {
-  //   id: "0",
-  //   title: "",
-  //   body: "",
-  //   isDone: false,
-  // },
+  todo: {
+    id: "0",
+    title: "",
+    body: "",
+    isDone: false,
+  },
 };
 
 export const __getTodos = createAsyncThunk(
@@ -27,7 +27,6 @@ export const __getTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const response = await axios.get("http://localhost:3001/todos");
-      console.log(response, "response data");
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -83,7 +82,6 @@ export const todosSlice = createSlice({
       state.isError = false;
     },
     [__getTodos.fulfilled]: (state, action) => {
-      console.log(action.payload, "action.payload");
       state.isLoading = false;
       state.isError = false;
       state.todos = action.payload;
