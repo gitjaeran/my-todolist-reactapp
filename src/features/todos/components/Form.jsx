@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useInput from "../../../hooks/useInput.js";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import nextId from "react-id-generator";
-import { addTodo } from "../../../redux/modules/todosSlice.js";
+import { __addTodos } from "../../../redux/modules/todosSlice.js";
 
 const Form = () => {
   const id = nextId();
@@ -19,13 +19,23 @@ const Form = () => {
     isDone: false,
   });
 
+  useEffect(() => {
+    setTodo({
+      id,
+      title,
+      body,
+      isDone: false,
+    });
+  }, [title, body]);
+
   const todos = useSelector(state => state.todos);
 
   const onSubmitHandler = event => {
     event.preventDefault();
-    if (todo.title.trim() === "" || todo.body.trim() === "") return;
+    // if (todo.title.trim() === "" || todo.body.trim() === "") return;
 
-    dispatch(addTodo({ ...todo, id }));
+    // dispatch(addTodo({ ...todo, id }));
+    dispatch(__addTodos({ ...todo, id }));
     setTodo({
       id: 0,
       title: "",

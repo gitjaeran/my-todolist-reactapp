@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteTodo,
-  toggleStatusTodo,
+  __isDoneStatusTodos,
   __getTodos,
+  __deleteTodos,
 } from "../../../redux/modules/todosSlice";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -27,11 +27,11 @@ const List = () => {
   }
 
   const onDeleteTodo = id => {
-    dispatch(deleteTodo(id));
+    dispatch(__deleteTodos(id));
   };
 
-  const onToggleStatusTodo = id => {
-    dispatch(toggleStatusTodo(id));
+  const isDoneStatusTodo = (id, isDone) => {
+    dispatch(__isDoneStatusTodos({ id, isDone }));
   };
 
   return (
@@ -58,7 +58,7 @@ const List = () => {
                   </StButton>
                   <StButton
                     borderColor="green"
-                    onClick={() => onToggleStatusTodo(todo.id)}
+                    onClick={() => isDoneStatusTodo(todo.id, todo.isDone)}
                   >
                     {todo.isDone ? "취소!" : "완료!"}
                   </StButton>
@@ -92,7 +92,7 @@ const List = () => {
                   </StButton>
                   <StButton
                     borderColor="green"
-                    onClick={() => onToggleStatusTodo(todo.id)}
+                    onClick={() => isDoneStatusTodo(todo.id, todo.isDone)}
                   >
                     {todo.isDone ? "취소!" : "완료!"}
                   </StButton>

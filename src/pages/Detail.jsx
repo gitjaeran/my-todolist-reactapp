@@ -2,25 +2,36 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getTodoByID } from "../redux/modules/todosSlice";
+import { __getTodoId } from "../redux/modules/todosSlice";
 
 const Detail = () => {
   const dispatch = useDispatch();
-  const todo = useSelector(state => state.todos.todo);
+  const { isLoading, error, todos } = useSelector(state => {
+    // console.log(state);
+    return state.todos;
+  });
 
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getTodoByID(id));
+    dispatch(__getTodoId(id));
   }, [dispatch, id]);
+
+  if (isLoading) {
+    return <div>로딩중</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
 
   return (
     <StContainer>
       <StDialog>
         <div>
           <StDialogHeader>
-            <div>ID :{todo.id}</div>
+            <div>ID :{todos.id}</div>
             <StButton
               borderColor="#ddd"
               onClick={() => {
@@ -30,8 +41,8 @@ const Detail = () => {
               이전으로
             </StButton>
           </StDialogHeader>
-          <StTitle>{todo.title}</StTitle>
-          <StBody>{todo.body}</StBody>
+          <StTitle>{todos.title}</StTitle>
+          <StBody>{todos.body}</StBody>
         </div>
       </StDialog>
     </StContainer>
