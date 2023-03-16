@@ -25,6 +25,7 @@ const List = () => {
   if (error) {
     return <div>{error.message}</div>;
   }
+  // console.log(todos, "List todos");
 
   const onDeleteTodo = id => {
     dispatch(__deleteTodos(id));

@@ -14,14 +14,15 @@ const initialState = {
   isLoading: false,
   isError: false,
   error: null,
-  // todo: {
-  //   id: "0",
-  //   title: "",
-  //   body: "",
-  //   isDone: false,
-  // },
+  todo: {
+    id: "0",
+    title: "",
+    body: "",
+    isDone: false,
+  },
 };
 
+//get todo
 export const __getTodos = createAsyncThunk(
   "getTodos",
   async (payload, thunkAPI) => {
@@ -34,6 +35,7 @@ export const __getTodos = createAsyncThunk(
   }
 );
 
+//add todo
 export const __addTodos = createAsyncThunk(
   "addTodos",
   async (payload, thunkAPI) => {
@@ -51,6 +53,7 @@ export const __addTodos = createAsyncThunk(
   }
 );
 
+//delete todo
 export const __deleteTodos = createAsyncThunk(
   "deleteTodos",
   async (payload, thunkAPI) => {
@@ -63,6 +66,7 @@ export const __deleteTodos = createAsyncThunk(
   }
 );
 
+//todo isDone toggle
 export const __isDoneStatusTodos = createAsyncThunk(
   "isDoneStatusTodos",
   async (payload, thunkAPI) => {
@@ -98,6 +102,7 @@ export const __getTodoId = createAsyncThunk(
   }
 );
 
+//redux toolkit
 export const todosSlice = createSlice({
   name: "todos",
   initialState,
@@ -182,7 +187,9 @@ export const todosSlice = createSlice({
       // console.log(action.payload, "action.payload");
       state.isLoading = false;
       state.isError = false;
-      state.todos = action.payload;
+      // console.log(action.payload, "action.payload, reducer");
+      state.todo = action.payload;
+      // console.log(state.todo, "state.todo, reducer");
     },
     [__getTodoId.rejected]: (state, action) => {
       state.isLoading = false;

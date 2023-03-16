@@ -6,10 +6,11 @@ import { __getTodoId } from "../redux/modules/todosSlice";
 
 const Detail = () => {
   const dispatch = useDispatch();
-  const { isLoading, error, todos } = useSelector(state => {
-    // console.log(state);
+  const { isLoading, error, todo } = useSelector(state => {
     return state.todos;
   });
+  // console.log(todos, "todos, Detail");
+  // console.log(todo, "todo, detail");
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -31,18 +32,19 @@ const Detail = () => {
       <StDialog>
         <div>
           <StDialogHeader>
-            <div>ID :{todos.id}</div>
+            <div>ID :{todo.id}</div>
             <StButton
               borderColor="#ddd"
               onClick={() => {
+                // console.log(todo, "Detail todo");
                 navigate("/");
               }}
             >
               이전으로
             </StButton>
           </StDialogHeader>
-          <StTitle>{todos.title}</StTitle>
-          <StBody>{todos.body}</StBody>
+          <StTitle>{todo.title}</StTitle>
+          <StBody>{todo.body}</StBody>
         </div>
       </StDialog>
     </StContainer>
