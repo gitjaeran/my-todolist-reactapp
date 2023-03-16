@@ -37,7 +37,6 @@ export const __getTodos = createAsyncThunk(
 export const __addTodos = createAsyncThunk(
   "addTodos",
   async (payload, thunkAPI) => {
-    // console.log(payload, "payload");
     try {
       const response = await axios.post("http://localhost:3001/todos", {
         id: payload.id,
@@ -45,7 +44,6 @@ export const __addTodos = createAsyncThunk(
         body: payload.body,
         isDone: payload.isDone,
       });
-      // console.log(response.data, "response");
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -56,7 +54,6 @@ export const __addTodos = createAsyncThunk(
 export const __deleteTodos = createAsyncThunk(
   "deleteTodos",
   async (payload, thunkAPI) => {
-    // console.log(payload);
     try {
       await axios.delete(`http://localhost:3001/todos/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
@@ -69,7 +66,6 @@ export const __deleteTodos = createAsyncThunk(
 export const __isDoneStatusTodos = createAsyncThunk(
   "isDoneStatusTodos",
   async (payload, thunkAPI) => {
-    // console.log(payload);
     try {
       const response = await axios.patch(
         `http://localhost:3001/todos/${payload.id}`,
@@ -80,7 +76,6 @@ export const __isDoneStatusTodos = createAsyncThunk(
           isDone: !payload.isDone,
         }
       );
-      // console.log(response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -96,7 +91,6 @@ export const __getTodoId = createAsyncThunk(
       const response = await axios.get(
         `http://localhost:3001/todos/${payload}`
       );
-      // console.log(response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -107,43 +101,6 @@ export const __getTodoId = createAsyncThunk(
 export const todosSlice = createSlice({
   name: "todos",
   initialState,
-  // reducers: {
-  //   addTodo: (state, action) => {
-  //     return {
-  //       ...state,
-  //       todos: [...state.todos, action.payload],
-  //     };
-  //   },
-  //   deleteTodo: (state, action) => {
-  //     return {
-  //       ...state,
-  //       todos: state.todos.filter(todo => todo.id !== action.payload),
-  //     };
-  //   },
-  //   toggleStatusTodo: (state, action) => {
-  //     return {
-  //       ...state,
-  //       todos: state.todos.map(todo => {
-  //         if (todo.id === action.payload) {
-  //           return {
-  //             ...todo,
-  //             isDone: !todo.isDone,
-  //           };
-  //         } else {
-  //           return todo;
-  //         }
-  //       }),
-  //     };
-  //   },
-  //   getTodoByID: (state, action) => {
-  //     return {
-  //       ...state,
-  //       todo: state.todos.find(todo => {
-  //         return todo.id === action.payload;
-  //       }),
-  //     };
-  //   },
-  // },
   reducers: {},
   extraReducers: {
     //get

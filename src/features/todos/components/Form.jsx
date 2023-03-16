@@ -32,9 +32,7 @@ const Form = () => {
 
   const onSubmitHandler = event => {
     event.preventDefault();
-    // if (todo.title.trim() === "" || todo.body.trim() === "") return;
 
-    // dispatch(addTodo({ ...todo, id }));
     dispatch(__addTodos({ ...todo, id }));
     setTodo({
       id: 0,
