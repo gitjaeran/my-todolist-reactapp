@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Header = () => {
   return (
     <StContainer>
-      <div>My Todo List</div>
-      <div>React</div>
+      <div>MY TODOLIST</div>
+      <Link to={`/login`}>LOGIN</Link>
     </StContainer>
   );
 };
